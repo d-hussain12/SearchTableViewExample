@@ -25,7 +25,7 @@ class TableView: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
 
-    let imageNames = ["imagedan", "imagedan", "imagedan"]
+    let imageNames = ["imagedan", "imagedan", "iconstask"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
