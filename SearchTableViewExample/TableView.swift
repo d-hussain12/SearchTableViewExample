@@ -20,6 +20,11 @@ class TableView: UIViewController {
     
     var selected: String?
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
+
+    let imageNames = ["imagedan", "imagedan", "imagedan"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
@@ -50,7 +55,45 @@ class TableView: UIViewController {
         self.tableView.backgroundColor = UIColor.colorFromHex("#9E1C40")
         
         self.listOfCountries()
+        
+        setupScrollView()
+         setupPageControl()
     }
+    
+    func setupScrollView() {
+           scrollView.delegate = self
+           scrollView.isPagingEnabled = true
+           scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(imageNames.count), height: scrollView.frame.height)
+
+           for (index, imageName) in imageNames.enumerated() {
+               let imageView = UIImageView(frame: CGRect(x: scrollView.frame.width * CGFloat(index), y: 0, width: scrollView.frame.width, height: scrollView.frame.height))
+               imageView.image = UIImage(named: imageName)
+               imageView.contentMode = .scaleAspectFit
+               scrollView.addSubview(imageView)
+           }
+       }
+
+       func setupPageControl() {
+           pageControl.numberOfPages = imageNames.count
+           pageControl.currentPage = 0
+       }
+
+       // MARK: - UIScrollViewDelegate
+
+       func scrollViewDidScroll(_ scrollView: UIScrollView) {
+           let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
+           pageControl.currentPage = Int(pageIndex)
+           
+           let countryListChanged = NSLocale.isoCountryCodes as [String]
+           countryList.removeAll()
+           tableView.reloadData()
+           for code in countryListChanged.shuffled() {
+               let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+               let name = NSLocale(localeIdentifier: "en").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Country not found for code: \(code)"
+               countryList.append(name + " " + countryFlag(country: code))
+               tableView.reloadData()
+           }
+       }
     
     func listOfCountries() {
         for code in NSLocale.isoCountryCodes as [String] {
