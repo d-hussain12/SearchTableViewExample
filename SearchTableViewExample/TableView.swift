@@ -54,7 +54,7 @@ class TableView: UIViewController {
         
         self.tableView.separatorStyle = .none
         self.tableView.tintColor = UIColor.white
-        self.tableView.backgroundColor = UIColor.colorFromHex("#9E1C40")
+        self.tableView.backgroundColor = UIColor.colorFromHex("#808080")
         
         self.listOfCountries()
         
@@ -86,7 +86,7 @@ class TableView: UIViewController {
            let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
            pageControl.currentPage = Int(pageIndex)
            
-           if Int(pageIndex) == 0{
+           if Int(pageIndex) == 2{
                let countryListChanged = NSLocale.isoCountryCodes as [String]
                countryList.removeAll()
                tableView.reloadData()
