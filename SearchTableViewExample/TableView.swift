@@ -20,6 +20,8 @@ class TableView: UIViewController {
     
     var selected: String?
     
+    var pageCount = 0
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
 
@@ -84,14 +86,26 @@ class TableView: UIViewController {
            let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
            pageControl.currentPage = Int(pageIndex)
            
-           let countryListChanged = NSLocale.isoCountryCodes as [String]
-           countryList.removeAll()
-           tableView.reloadData()
-           for code in countryListChanged.shuffled() {
-               let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
-               let name = NSLocale(localeIdentifier: "en").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Country not found for code: \(code)"
-               countryList.append(name + " " + countryFlag(country: code))
+           if Int(pageIndex) == 0{
+               let countryListChanged = NSLocale.isoCountryCodes as [String]
+               countryList.removeAll()
                tableView.reloadData()
+               for code in countryListChanged {
+                   let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+                   let name = NSLocale(localeIdentifier: "en").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Country not found for code: \(code)"
+                   countryList.append(name + " " + countryFlag(country: code))
+                   tableView.reloadData()
+               }
+           }else{
+               let countryListChanged = NSLocale.isoCountryCodes as [String]
+               countryList.removeAll()
+               tableView.reloadData()
+               for code in countryListChanged.shuffled() {
+                   let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+                   let name = NSLocale(localeIdentifier: "en").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Country not found for code: \(code)"
+                   countryList.append(name + " " + countryFlag(country: code))
+                   tableView.reloadData()
+               }
            }
        }
     
