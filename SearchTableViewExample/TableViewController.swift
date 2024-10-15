@@ -56,6 +56,28 @@ class TableViewController: UIViewController {
         
         setupScrollView()
          setupPageControl()
+        setupVerticalScrollView()
+        searchBar.delegate = self
+    }
+    
+    
+    @objc func moveViewToTop() {
+           // Animate the view to move to the top of the screen
+           UIView.animate(withDuration: 1.0, delay: 0, options: [.curveEaseInOut], animations: {
+               self.searchBar.frame.origin.y = self.view.safeAreaInsets.top
+           }, completion: nil)
+       }
+    
+    func setupVerticalScrollView() {
+        let scrollView = UIScrollView()
+               scrollView.frame = view.bounds // Set scroll view to the size of the main view
+               scrollView.backgroundColor = .lightGray
+               view.addSubview(scrollView)
+              
+               scrollView.addSubview(self.scrollView)
+               scrollView.addSubview(self.searchBar)
+               scrollView.addSubview(self.tableView)
+     
     }
     
     func setupScrollView() {
@@ -182,5 +204,9 @@ extension TableViewController: UISearchBarDelegate {
         searching = false
         searchBar.text = ""
         tableView.reloadData()
+        
+        UIView.animate(withDuration: 1.0, delay: 0, options: [.curveEaseInOut], animations: {
+            searchBar.frame.origin.y = self.view.safeAreaInsets.top
+        }, completion: nil)
     }
 }
