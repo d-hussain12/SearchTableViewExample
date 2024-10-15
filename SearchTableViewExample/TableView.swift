@@ -25,7 +25,7 @@ class TableView: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
 
-    let imageNames = ["imagedan", "imagedan", "iconstask"]
+    let imageNames = ["imagedan", "bisb", "ila"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,7 +129,7 @@ class TableView: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "detailsviewcontrollerseg" {
+        if segue.identifier == "detailsViewController" {
             let DestViewController = segue.destination as! DetailsViewController
             DestViewController.selectedCountry = selected
         }
@@ -168,7 +168,7 @@ extension TableView: UITableViewDelegate, UITableViewDataSource {
             let selectedCountry = countryList[indexPath.row]
             selected = selectedCountry
         }
-        performSegue(withIdentifier: "detailsviewcontrollerseg", sender: self)
+        performSegue(withIdentifier: "detailsViewController", sender: self)
         // Remove highlight from the selected cell
         tableView.deselectRow(at: indexPath, animated: true)
         // Close keyboard when you select cell
