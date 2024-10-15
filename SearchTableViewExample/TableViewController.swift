@@ -34,17 +34,13 @@ class TableViewController: UIViewController {
         
         self.searchBar.delegate = self
         
-        // Change the Tint Color
         self.searchBar.barTintColor = UIColor.colorFromHex("#BC214B")
         self.searchBar.tintColor = UIColor.white
-        // Show/Hide Cancel Button
         self.searchBar.showsCancelButton = true
-        // Change TextField Colors
         let searchTextField = self.searchBar.searchTextField
         searchTextField.textColor = UIColor.white
         searchTextField.clearButtonMode = .never
         searchTextField.backgroundColor = UIColor.colorFromHex("#9E1C40")
-        // Change Glass Icon Color
         let glassIconView = searchTextField.leftView as! UIImageView
         glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
         glassIconView.tintColor = UIColor.colorFromHex("#BC214B")
@@ -169,9 +165,7 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
             selected = selectedCountry
         }
         performSegue(withIdentifier: "detailsViewController", sender: self)
-        // Remove highlight from the selected cell
         tableView.deselectRow(at: indexPath, animated: true)
-        // Close keyboard when you select cell
         self.searchBar.searchTextField.endEditing(true)
     }
 }
