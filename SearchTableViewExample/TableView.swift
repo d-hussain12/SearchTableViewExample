@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableView: UIViewController {
+class TableViewController: UIViewController {
     @IBOutlet var searchBar: UISearchBar!
     
     @IBOutlet var tableView: UITableView!
@@ -136,7 +136,7 @@ class TableView: UIViewController {
     }
 }
 
-extension TableView: UITableViewDelegate, UITableViewDataSource {
+extension TableViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searching {
             return searchedCountry.count
@@ -176,7 +176,7 @@ extension TableView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension TableView: UISearchBarDelegate {
+extension TableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchedCountry = countryList.filter { $0.lowercased().prefix(searchText.count) == searchText.lowercased() }
